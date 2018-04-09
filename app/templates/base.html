@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {% if title %}
     <title>{{ title }} - Dopenet: The ideal website for the future!</title>
+    {% else %}
+    <title>Welcome to Dopenet!!!</title>
+    {% endif %}
 </head>
 <body>
-    <h1>Hi, whaddup {{ username }}???</h1>
+    <div>
+        <a href="/index">Main</a>
+        <a href="/login">Login</a>
+    </div>
+    <hr>
+    {% block content %}{% endblock %}
 </body>
 </html>

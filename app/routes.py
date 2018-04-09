@@ -5,5 +5,22 @@ from app import app
 @app.route('/')
 @app.route('/index')
 def index():
-    username = "ModoUnreal"
-    return render_template('base.html', title='Dopenet: You can do anything', username=username)
+    user = {'username': 'ModoUnreal'}
+
+    posts = [
+            
+            {
+                'author': {'username': 'Captain Swiggles'},
+                'body': 'Hey this is me, just checkin out..'
+
+            }
+            
+            
+            
+            ]
+
+    return render_template('index.html', title='Dopenet: You can do anything', user=user, posts=posts)
+
+@app.route('/login')
+def login():
+    return 'This is the login screen...'
