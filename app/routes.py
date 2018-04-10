@@ -1,4 +1,5 @@
 from flask import render_template
+from app.forms import LoginForm
 from app import app
 
 
@@ -12,10 +13,7 @@ def index():
             {
                 'author': {'username': 'Captain Swiggles'},
                 'body': 'Hey this is me, just checkin out..'
-
             }
-            
-            
             
             ]
 
@@ -23,4 +21,5 @@ def index():
 
 @app.route('/login')
 def login():
-    return 'This is the login screen...'
+    loginform = LoginForm()
+    return render_template('login.html', title='Login to Dopenet', form=loginform)
