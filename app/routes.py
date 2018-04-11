@@ -1,8 +1,8 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
-from app.forms import LoginForm, RegistrationForm
-from app.models import User
+from app.forms import LoginForm, RegistrationForm, SubmitForm
+from app.models import User, Post
 from app import app, db
 
 
@@ -53,6 +53,15 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-@app.route('/submit')
+@app.route('/submit', methods=['GET', 'POST'])
+@login_required
 def submit():
-    return "This will be used to submit stuff"
+    form = SubmitForm()
+    if form.validate_on_submit():
+        post = Post(title=form.title.data, text=form.text.data)
+        db.session.add(post)
+        db.session.commit()
+    
+        flash('You have now made a post!')
+        return redirect(url_for('index'))
+    return render_template('submit.html', title='Submit', form=form)
