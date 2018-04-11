@@ -6,13 +6,30 @@
     {% else %}
     <title>Welcome to Dopenet!!!</title>
     {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
 </head>
 <body>
     <div>
-        <a href="/index">Main</a>
-        <a href="/login">Login</a>
+        <a href="{{ url_for('index') }}">Main</a>
+
+        {% if current_user.is_anonymous %}
+        <a href="{{ url_for('login') }}">Login</a>
+        {% else %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% endif %}
+
+        <a href="{{ url_for('submit') }}">Submit</a>
     </div>
     <hr>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
     {% block content %}{% endblock %}
 </body>
 </html>

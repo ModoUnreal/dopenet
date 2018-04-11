@@ -15,4 +15,6 @@
         <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
         <p>{{ form.submit() }}</p>
     </form>
+
+    <p>New User? <a href="{{ url_for('register') }}">Click to make a Dopenet account!</a></p>
 {% endblock %}
