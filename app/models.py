@@ -34,3 +34,12 @@ class Post(db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
+
+def find_users_post(user):
+    posts = Post.query.all()
+    user_posts = []
+    for post in posts:
+        if post.author.id == user.id:
+            user_posts.append(post)
+
+    return user_posts
