@@ -12,7 +12,7 @@ class User(UserMixin, db.Model):
     posts = db.relationship('Post', backref='author', lazy='dynamic')
 
     def __repr__(self):
-        return '<User {}>'.format(self.username)  
+        return self.username  
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
@@ -34,6 +34,3 @@ class Post(db.Model):
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-
-def get_all_posts():
-    return Post.query.all()

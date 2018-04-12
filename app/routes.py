@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
 from app.forms import LoginForm, RegistrationForm, SubmitForm
-from app.models import User, Post, get_all_posts
+from app.models import User, Post
 from app import app, db
 
 
@@ -10,7 +10,9 @@ from app import app, db
 @app.route('/index')
 @login_required
 def index():
-    posts = get_all_posts()
+    posts = Post.query.all()
+    for post in posts:
+        post.user_name = User.query.filter_by(id=post.user_id).first()
     return render_template('index.html', title='Dopenet: You can do anything', posts=posts )
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -59,7 +61,7 @@ def register():
 def submit():
     form = SubmitForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, text=form.text.data)
+        post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id)
         db.session.add(post)
         db.session.commit()
     
