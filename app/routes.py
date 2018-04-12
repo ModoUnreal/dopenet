@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
 from app.forms import LoginForm, RegistrationForm, SubmitForm
-from app.models import User, Post
+from app.models import User, Post, get_all_posts
 from app import app, db
 
 
@@ -10,7 +10,8 @@ from app import app, db
 @app.route('/index')
 @login_required
 def index():
-    return render_template('index.html', title='Dopenet: You can do anything', )
+    posts = get_all_posts()
+    return render_template('index.html', title='Dopenet: You can do anything', posts=posts )
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
