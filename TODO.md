@@ -3,17 +3,17 @@
 ## Required stuff
 1.) Make a simple site with skeleton template. DONE
 
-2.) Make simple models for users and posts.
+2.) Make simple models for users and posts. DONE
 
     * Use Python classes for this.
 
-3.) Initialise the database and its migrations, allowing for models to interact.
+3.) Initialise the database and its migrations, allowing for models to interact. DONE
 
     * Use sqlalchemy for this.
 
     * Use two tables, one for the user and the other for the posts.
 
-4.) Allow users to post and make entries to the database.
+4.) Allow users to post and make entries to the database. DONE
 
 5.) Expand on options for users later.
 
