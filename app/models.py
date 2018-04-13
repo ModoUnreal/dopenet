@@ -44,10 +44,4 @@ def find_users_post(user):
 
     return user_posts
 
-@app.context_processor
-def utility_processor():
-    def delete_posts(post_id):
-        post = Post.query.filter_by(id=post_id).first()
-        if post != None:
-            db.session.delete(post)
-            db.session.commit()
+

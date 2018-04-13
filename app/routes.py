@@ -79,3 +79,12 @@ def item(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
     user = post.author
     return render_template('item.html', user=user, post=post)
+
+@app.route('/delete_post/<post_id>', methods=['POST'])
+def delete_post(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    if post != None:
+        db.session.delete(post)
+        db.session.commit()
+
+    return redirect(url_for('index'))

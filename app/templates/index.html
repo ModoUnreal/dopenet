@@ -4,10 +4,12 @@
     <h1>Hi, whaddup {{ current_user.username }}???</h1>
     {% for post in posts if posts %}
     <div class="post">
-        <p><a href="{{ url_for('item', post.id) }}">{{ post.title }}</a> by {{ post.author.username }}</p>
+        <p><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a> by {{ post.author.username }}</p>
         {% if current_user.username == post.author.username %}
-        <br>
-        <p><a href={{ delete_posts(post.id) }}>Delete</a></p>
+
+        <form action="{{ url_for('delete_post', post_id=post.id) }}" method=post>
+            <input type="submit" value="Delete /">
+        </form>
         {% endif %}
     </div>
     {% endfor %}
