@@ -3,6 +3,6 @@
 {% block content %}
     <h1>Hi, whaddup {{ current_user.username }}???</h1>
     {% for post in posts %}
-    <div class="post"><p>{{ post.title }}: <b>{{ post.text }}</b> by {{ post.author.username }}</p></div>
+    <div class="post"><p><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a> by {{ post.author.username }}</p></div>
     {% endfor %}
 {% endblock %}

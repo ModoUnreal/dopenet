@@ -73,3 +73,9 @@ def user(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = find_users_post(user)
     return render_template('user.html', user=user, posts=posts)
+
+@app.route('/item/<post_id>')
+def item(post_id):
+    post = Post.query.filter_by(id=post_id).first_or_404()
+    user = post.author
+    return render_template('item.html', user=user, post=post)
