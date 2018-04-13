@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <p>{{ post.text }}</p>
+    <div class=post-title>
+        <h1>{{ post.title }}</h1><p> by: {{ post.author }}</p>
+        <p>{{ post.text }}</p>
+    </div>
 
 {% endblock %}

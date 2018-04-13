@@ -1,6 +1,6 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
-from app import db, login
+from app import app, db, login
 from flask_login import UserMixin
 
 
@@ -43,3 +43,11 @@ def find_users_post(user):
             user_posts.append(post)
 
     return user_posts
+
+@app.context_processor
+def utility_processor():
+    def delete_posts(post_id):
+        post = Post.query.filter_by(id=post_id).first()
+        if post != None:
+            db.session.delete(post)
+            db.session.commit()
