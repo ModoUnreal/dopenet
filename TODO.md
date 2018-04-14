@@ -15,9 +15,13 @@
 
 4.) Allow users to post and make entries to the database. DONE
 
-5.) Expand on options for users later.
+5.) Allow users to comment on posts.
+    * Make a comment model.
+    * Make a relationship between the comment and post models.
+
+6.) Expand on options for users later.
 
 ## Extension stuff
-6.) Allow for images and videos.
+7.) Allow for images and videos.
 
-7.) Make pms/chat possible.
+8.) Make pms/chat possible.
