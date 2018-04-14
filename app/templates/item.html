@@ -3,7 +3,16 @@
 {% block content %}
     <div class=post-title>
         <h1>{{ post.title }}</h1><p> by: {{ post.author }}</p>
-        <p>{{ post.text }}</p>
+
     </div>
 
+    <div class=post-body>
+        <p>{{ post.text }}</p><br>
+    </div>
+
+    <div class=post-comments>
+        {% for comment in comments if comments %}
+            {% include '_comment.html' %}
+        {% endfor %}
+    </div>
 {% endblock %}

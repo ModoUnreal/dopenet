@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
 from app.forms import LoginForm, RegistrationForm, SubmitForm
-from app.models import User, Post, find_users_post
+from app.models import User, Post, Comment, find_users_post
 from app import app, db
 
 
@@ -77,8 +77,9 @@ def user(username):
 @app.route('/item/<post_id>')
 def item(post_id):
     post = Post.query.filter_by(id=post_id).first_or_404()
+    comments = Comment.query.filter_by(post_id=post.id)
     user = post.author
-    return render_template('item.html', user=user, post=post)
+    return render_template('item.html', user=user, post=post, comments=comments)
 
 @app.route('/delete_post/<post_id>', methods=['POST'])
 def delete_post(post_id):
