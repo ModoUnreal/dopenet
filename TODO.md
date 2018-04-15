@@ -1,5 +1,9 @@
 # Todo
 
+## Urgent
+* Nothing much here...
+
+
 ## Required stuff
 1.) Make a simple site with skeleton template. DONE
 
@@ -17,7 +21,8 @@
 
 5.) Allow users to comment on posts.
     * Make a comment model.
-    * Make a relationship between the comment and post models.
+    * Make a one to many relationship between post (one) and comments (many).
+    * The foreign key must then be in the comments table.
 
 6.) Expand on options for users later.
 
