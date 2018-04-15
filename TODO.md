@@ -20,9 +20,7 @@
 4.) Allow users to post and make entries to the database. DONE
 
 5.) Allow users to comment on posts.
-    * Make a comment model.
-    * Make a one to many relationship between post (one) and comments (many).
-    * The foreign key must then be in the comments table.
+    * Nonononononononono, just make the comments a column on the posts table.
 
 6.) Expand on options for users later.
 
