@@ -32,3 +32,7 @@ class SubmitForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     text = TextAreaField('Text', validators=[Length(min=0, max=140)])
     submit = SubmitField('Send')
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField('Comment', validators=[Length(min=0, max=140)])
+    submit = SubmitField('Send')
