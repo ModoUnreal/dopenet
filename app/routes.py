@@ -82,7 +82,7 @@ def item(post_id):
     form = CommentForm()
     if form.validate_on_submit():
         comment = Comment(text=form.comment.data, post_id=post.id,
-                user_id=current_user.id)
+                user_id=current_user.id, username=current_user.username)
         db.session.add(comment)
         db.session.commit()
 

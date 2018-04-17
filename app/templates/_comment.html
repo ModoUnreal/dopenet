@@ -1,7 +1,7 @@
 <table class="comment">
     <tr valign="top">
         {% if comment.post_id == comment.post.id %}
-            <p>{{ comment.text }} by: {{ comment.post.author.username }}</p>
+            <p>{{ comment.text }} by: {{ comment.username }}</p>
         {% endif %}
     </tr>
 </table>
