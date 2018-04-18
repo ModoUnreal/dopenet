@@ -23,6 +23,10 @@
     * Nonononononononono, just make the comments a column on the posts table.
 
 6.) Expand on options for users later.
+    * I am adding the option to vote, works with the same algorithm used on Reddit, except for this small change...
+    * ((upvotes - downvotes) / time) * importance
+    * I will explain what this importance variable does soon, after revision, but basically its like a temporary sticky post.
+
 
 ## Extension stuff
 7.) Allow for images and videos.
