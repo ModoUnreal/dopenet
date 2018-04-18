@@ -19,7 +19,7 @@
 
 4.) Allow users to post and make entries to the database. DONE
 
-5.) Allow users to comment on posts.
+5.) Allow users to comment on posts. DONE
     * Nonononononononono, just make the comments a column on the posts table.
 
 6.) Expand on options for users later.
