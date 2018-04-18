@@ -85,6 +85,7 @@ def item(post_id):
                 user_id=current_user.id, username=current_user.username)
         db.session.add(comment)
         db.session.commit()
+        return redirect(url_for('item', post_id=post_id))
 
     comments = Comment.query.filter_by(post_id=post.id)
     user = post.author
@@ -99,3 +100,12 @@ def delete_post(post_id):
         db.session.commit()
 
     return redirect(url_for('index'))
+
+@app.route('/delete_comment/<post_id>/<comment_id>', methods=['POST'])
+def delete_comment(post_id, comment_id):
+    comment = Comment.query.filter_by(id=comment_id).first()
+    if comment != None:
+        db.session.delete(comment)
+        db.session.commit()
+
+    return redirect(url_for('item', post_id=post_id))
