@@ -1,3 +1,18 @@
-.post p {
+td.post {
+    color: red;
     font-family: arial, sans-serif;
+}
+
+div.submit {
+    display: inline-block;
+    bottom: -3em;
+}
+
+.footer a{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    text-align: center;
 }
