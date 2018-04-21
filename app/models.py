@@ -1,7 +1,8 @@
-from datetime import datetime
+import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import app, db, login
 from flask_login import UserMixin
+from math import log
 
 
 class User(UserMixin, db.Model):
@@ -24,13 +25,32 @@ class User(UserMixin, db.Model):
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     title = db.Column(db.String(50))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
+    score = db.Column(db.Float) # I will have to try to understand this...
+    upvotes = db.Column(db.Integer)
+    downvotes = db.Column(db.Integer)
+
+    created_on = db.Column(db.DateTime, default=db.func.now())
+
     def __repr__(self):
         return '<Post {}>'.format(self.text)
+
+    def get_age(self):
+        return (self.timestamp - datetime.datetime(1970, 1, 1)).total_seconds()
+
+    def get_hotness(self):
+        return (self.upvotes - self.downvotes) / self.get_age()
+
+    def set_hotness(self):
+        self.hotness = self.get_hotness()
+        db.session.commit()
+
+    def prettify_date(self):
+        return utils.prettify_date(self.created_on)
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -38,7 +58,7 @@ class Comment(db.Model):
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     username = db.Column(db.String(64))
     text = db.Column(db.String(140))
-    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow)
 
     def __repr__(self):
         return '<Comment {}>'.format(self.text)
