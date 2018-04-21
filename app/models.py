@@ -42,6 +42,10 @@ class Post(db.Model):
     def get_age(self):
         return (self.timestamp - datetime.datetime(1970, 1, 1)).total_seconds()
 
+    def get_score(self):
+        self.score = self.upvotes - self.downvotes
+        return self.score
+
     def get_hotness(self):
         return (self.upvotes - self.downvotes) / self.get_age()
 

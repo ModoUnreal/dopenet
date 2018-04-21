@@ -117,7 +117,13 @@ def vote(post_id):
     post = Post.query.filter_by(id=post_id).first()
     if post != None:
         if "upvote" in request.form:
-            post.upvote()
+            post.upvotes = post.upvotes + 1
+            post.get_score()
+            db.session.commit()
         if "downvote" in request.form:
-            post.downvote()
+            post.downvotes = post.downvotes + 1
+            post.get_score()
+            db.session.commit()
+
+    return redirect(url_for('index'))
 
