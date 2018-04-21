@@ -1,6 +1,7 @@
 <table class="post">
     <tr valign="top">
         <td><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a> by {{ post.author.username }}</td>
+        <td>Score: {{ post.hotness }}</td>
 
         {% if current_user.username == post.author.username %}
         <form action="{{ url_for('delete_post', post_id=post.id) }}" method=post>
