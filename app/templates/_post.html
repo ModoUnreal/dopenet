@@ -7,7 +7,13 @@
         <form action="{{ url_for('delete_post', post_id=post.id) }}" method=post>
             <input type="submit" value="Delete">
         </form>
+
         {% endif %}
+        <form action="{{ url_for('vote', post_id=post.id) }}" method=post>
+            <input type="submit" name="upvote" value="upvote">
+            <input type="submit" name="downvote" value="downvote">
+        </form>
+
     </tr>
 
 </table>

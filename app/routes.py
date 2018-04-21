@@ -92,14 +92,6 @@ def item(post_id):
     return render_template('item.html', user=user, post=post,
             comments=comments, form=form)
 
-@app.route('/delete_post/<post_id>', methods=['POST'])
-def delete_post(post_id):
-    post = Post.query.filter_by(id=post_id).first()
-    if post != None:
-        db.session.delete(post)
-        db.session.commit()
-
-    return redirect(url_for('index'))
 
 @app.route('/delete_comment/<post_id>/<comment_id>', methods=['POST'])
 def delete_comment(post_id, comment_id):
@@ -109,3 +101,23 @@ def delete_comment(post_id, comment_id):
         db.session.commit()
 
     return redirect(url_for('item', post_id=post_id))
+
+
+@app.route('/delete_post/<post_id>', methods=['POST'])
+def delete_post(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    if post != None:
+        db.session.delete(post)
+        db.session.commit()
+
+    return redirect(url_for('index'))
+
+@app.route('/vote/<post_id>', methods=['POST'])
+def vote(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    if post != None:
+        if "upvote" in request.form:
+            post.upvote()
+        if "downvote" in request.form:
+            post.downvote()
+

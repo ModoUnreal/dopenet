@@ -52,6 +52,14 @@ class Post(db.Model):
     def prettify_date(self):
         return utils.prettify_date(self.created_on)
 
+    def upvote(self):
+        self.upvote = int(self.upvote) + 1
+        db.session.commit()
+
+    def downvote(self):
+        self.downvotes = int(self.downvote) + 1
+        db.session.commit()
+
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
