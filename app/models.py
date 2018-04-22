@@ -33,6 +33,7 @@ class Post(db.Model):
     score = db.Column(db.Float) # I will have to try to understand this...
     upvotes = db.Column(db.Integer)
     downvotes = db.Column(db.Integer)
+    importance = db.Column(db.Integer)
 
     created_on = db.Column(db.DateTime, default=db.func.now())
 
