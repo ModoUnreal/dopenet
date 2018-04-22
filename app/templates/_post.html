@@ -4,7 +4,10 @@
 
         <tr valign="top">
 
+            <div class="post-title">
             <td><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a> by {{ post.author.username }}</td>
+            </div>
+
             <td>Score: {{ post.score }}</td>
     
             {% if current_user.username == post.author.username %}
@@ -18,6 +21,10 @@
             <form action="{{ url_for('vote', post_id=post.id) }}" method=post>
                 <input type="submit" name="upvote" value="upvote">
                 <input type="submit" name="downvote" value="downvote">
+            </form>
+
+            <form action="{{ url_for('give_importance', post_id=post.id) }}" method=post>
+                <input type="submit" name="important" value="important">
             </form>
     
         </tr>

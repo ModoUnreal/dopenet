@@ -127,6 +127,17 @@ def vote(post_id):
 
     return redirect(url_for('index'))
 
+@app.route('/give_importance/<post_id>', methods=['POST'])
+def give_importance(post_id):
+    post = Post.query.filter_by(id=post_id).first()
+    if post != None:
+        if post.importance == None:
+            post.importance = 1
+        post.importance = post.importance + 1
+        db.session.commit()
+
+    return redirect(url_for('index'))
+
 
 @app.route('/faq', methods=['GET'])
 def faq():

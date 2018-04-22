@@ -1,10 +1,8 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <div class=post-title>
-        <h1>{{ post.title }}</h1><p> by: {{ post.author }}</p>
 
-    </div>
+    {% include '_post.html' %}
 
     <div class=post-body>
         <p>{{ post.text }}</p><br>
