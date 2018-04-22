@@ -127,3 +127,16 @@ def vote(post_id):
 
     return redirect(url_for('index'))
 
+
+@app.route('/faq', methods=['GET'])
+def faq():
+    return render_template('faq.html')
+
+@app.route('/contact', methods=['GET'])
+def contact():
+    return render_template('contact.html')
+
+@app.route('/rules', methods=['GET'])
+def rules():
+    return render_template('rules.html')
+

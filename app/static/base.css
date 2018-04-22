@@ -1,11 +1,15 @@
-td.post {
-    color: red;
-    font-family: arial, sans-serif;
+body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
 }
 
-div.submit {
-    display: inline-block;
-    bottom: -3em;
+
+
+.post-title td {
+    color: red;
+    font-family: arial, sans-serif;
 }
 
 .footer a{
@@ -13,6 +17,7 @@ div.submit {
     right: 0;
     bottom: 0;
     left: 0;
+    margin: 0px;
     padding: 1rem;
     text-align: center;
 }
