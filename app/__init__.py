@@ -10,6 +10,10 @@ app.config.from_object(Config)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
-login.login_view = 'login'
+login.login_view = 'auth.login'
 
 from app import routes, models, errors
+
+# Deal with any blueprints here.
+from .auth import api as auth_blueprint
+app.register_blueprint(auth_blueprint, url_prefix='/auth')

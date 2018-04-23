@@ -30,7 +30,7 @@ class Post(db.Model):
     title = db.Column(db.String(50))
     comments = db.relationship('Comment', backref='post', lazy='dynamic')
 
-    score = db.Column(db.Float) # I will have to try to understand this...
+    score = db.Column(db.Float)
     upvotes = db.Column(db.Integer)
     downvotes = db.Column(db.Integer)
     importance = db.Column(db.Integer)
@@ -58,12 +58,23 @@ class Post(db.Model):
         return utils.prettify_date(self.created_on)
 
     def upvote(self):
-        self.upvote = int(self.upvote) + 1
+        self.upvotes = int(self.upvotes) + 1
         db.session.commit()
 
     def downvote(self):
         self.downvotes = int(self.downvote) + 1
         db.session.commit()
+
+    def make_vote_int(self):
+        if self.upvotes == None:
+            self.upvotes = 1
+
+        if self.downvotes == None:
+            self.downvotes = 1
+
+    def make_importance_int(self):
+        if self.importance == None:
+            self.importance = 1
 
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
