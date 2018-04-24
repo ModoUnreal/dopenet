@@ -12,6 +12,9 @@ from app import app, db
 @login_required
 def index():
     posts = Post.query.all()
+    for post in posts:
+        post.set_hotness()
+    posts = Post.query.order_by(Post.hotness).all()
     return render_template('index.html', title='Dopenet: You can do anything', posts=posts )
 
 @app.route('/submit', methods=['GET', 'POST'])
@@ -100,7 +103,7 @@ def give_importance(post_id):
         post.importance = post.importance + 1
         db.session.commit()
 
-    return redirect(url_for('index'))
+    return redirect(redirect_url())
 
 
 @app.route('/faq', methods=['GET'])

@@ -34,6 +34,7 @@ class Post(db.Model):
     upvotes = db.Column(db.Integer)
     downvotes = db.Column(db.Integer)
     importance = db.Column(db.Integer)
+    hotness = db.Column(db.Integer)
 
     created_on = db.Column(db.DateTime, default=db.func.now())
 
@@ -48,14 +49,11 @@ class Post(db.Model):
         return self.score
 
     def get_hotness(self):
-        return (self.upvotes - self.downvotes) / self.get_age()
+        return ((self.upvotes - self.downvotes) / self.get_age()) * self.importance
 
     def set_hotness(self):
         self.hotness = self.get_hotness()
         db.session.commit()
-
-    def prettify_date(self):
-        return utils.prettify_date(self.created_on)
 
     def upvote(self):
         self.upvotes = int(self.upvotes) + 1
