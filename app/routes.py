@@ -1,6 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
+from app.helpers import redirect_url
 from app.models import User, Post, Comment, find_users_post
 from app.forms import CommentForm, SubmitForm
 from app import app, db
@@ -88,7 +89,7 @@ def vote(post_id):
             post.get_score()
             db.session.commit()
 
-    return redirect(url_for('index'))
+    return redirect(redirect_url()) # Look at snippet 62
 
 @app.route('/give_importance/<post_id>', methods=['POST'])
 def give_importance(post_id):
