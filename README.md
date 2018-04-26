@@ -24,16 +24,8 @@ And then install all the necessary requirements using:
 $ pip install -r requirements.txt
 ```
 
-Set up FLASK_APP using the following:
-
 ```bash
-$ set FLASK_APP=dopenet.py
-```
-
-Finally, you can run dopenet:
-
-```bash
-$ flask run
+$ python dopenet.py
 ```
 
 The website should be running in your local network, so probably `localhost:5000`.
