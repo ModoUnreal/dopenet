@@ -36,20 +36,25 @@ class Post(db.Model):
     importance = db.Column(db.Integer)
     hotness = db.Column(db.Integer)
 
+    age = db.Column(db.Integer)
+    time_since = db.Column(db.Integer)
+
     created_on = db.Column(db.DateTime, default=db.func.now())
 
     def __repr__(self):
         return '<Post {}>'.format(self.text)
 
     def get_age(self):
-        return (self.timestamp - datetime.datetime(1970, 1, 1)).total_seconds()
+        self.age = (self.timestamp - datetime.datetime(1970, 1, 1)).total_seconds()
+        return self.age
 
     def get_score(self):
         self.score = self.upvotes - self.downvotes
         return self.score
 
     def get_hotness(self):
-        return ((self.upvotes - self.downvotes) / self.get_age()) * self.importance
+        self.get_age()
+        self.hotness = db.engine.execute("SELECT *, (upvotes - downvotes) * age / importance * -1 AS hotness FROM 'post' ORDER BY hotness DESC LIMIT 50")
 
     def set_hotness(self):
         self.hotness = self.get_hotness()

@@ -11,9 +11,6 @@ from app import app, db
 @app.route('/index')
 @login_required
 def index():
-    posts = Post.query.all()
-    for post in posts:
-        post.set_hotness()
     posts = Post.query.order_by(Post.hotness).all()
     return render_template('index.html', title='Dopenet: You can do anything', posts=posts )
 
@@ -23,6 +20,9 @@ def submit():
     form = SubmitForm()
     if form.validate_on_submit():
         post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id)
+        post.upvotes = 1
+        post.downvotes = 0
+        post.importance = 1
         db.session.add(post)
         db.session.commit()
     
@@ -86,10 +86,12 @@ def vote(post_id):
         if "upvote" in request.form:
             post.upvotes = post.upvotes + 1
             post.get_score()
+            post.set_hotness()
             db.session.commit()
         if "downvote" in request.form:
             post.downvotes = post.downvotes + 1
             post.get_score()
+            post.set_hotness()
             db.session.commit()
 
     return redirect(redirect_url()) # Look at snippet 62
@@ -101,6 +103,7 @@ def give_importance(post_id):
         if post.importance == None:
             post.make_importance_int()
         post.importance = post.importance + 1
+        post.set_hotness()
         db.session.commit()
 
     return redirect(redirect_url())
