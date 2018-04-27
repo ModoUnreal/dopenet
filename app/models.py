@@ -37,6 +37,7 @@ class Post(db.Model):
     hotness = db.Column(db.Integer)
 
     age = db.Column(db.Integer)
+#    topics = db.relationship
 
     created_on = db.Column(db.DateTime, default=db.func.now())
 
@@ -89,6 +90,13 @@ class Comment(db.Model):
     def __repr__(self):
         return '<Comment {}>'.format(self.text)
 
+class Topic(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tag_name = db.Column(db.String(64), index=True, unique=True)
+    posts = db.relationship('Post', backref='topic', lazy='dynamic')
+
+    def __repr__(self):
+        return self.tag_name
 
 @login.user_loader
 def load_user(id):
