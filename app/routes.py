@@ -11,7 +11,7 @@ from app import app, db
 @app.route('/index')
 @login_required
 def index():
-    posts = Post.query.order_by(Post.hotness).all()
+    posts = Post.query.order_by(Post.hotness.desc()).all()
     return render_template('index.html', title='Dopenet: You can do anything', posts=posts )
 
 @app.route('/submit', methods=['GET', 'POST'])
@@ -23,6 +23,7 @@ def submit():
         post.upvotes = 1
         post.downvotes = 0
         post.importance = 1
+        post.score = post.get_score()
         db.session.add(post)
         db.session.commit()
     

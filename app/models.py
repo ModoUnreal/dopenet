@@ -37,7 +37,6 @@ class Post(db.Model):
     hotness = db.Column(db.Integer)
 
     age = db.Column(db.Integer)
-    time_since = db.Column(db.Integer)
 
     created_on = db.Column(db.DateTime, default=db.func.now())
 
@@ -54,7 +53,7 @@ class Post(db.Model):
 
     def get_hotness(self):
         self.get_age()
-        self.hotness = db.engine.execute("SELECT *, (upvotes - downvotes) * age / importance * -1 AS hotness FROM 'post' ORDER BY hotness DESC LIMIT 50")
+        self.hotness = db.engine.execute("UPDATE post SET hotness=(upvotes - downvotes) * age / importance")
 
     def set_hotness(self):
         self.hotness = self.get_hotness()
