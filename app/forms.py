@@ -5,6 +5,7 @@ from wtforms.validators import DataRequired, ValidationError, Email, EqualTo, Le
 
 class SubmitForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
+    topics = StringField('Topics', validators=[DataRequired()])
     text = TextAreaField('Text', validators=[Length(min=0, max=140)])
     submit = SubmitField('Send')
 

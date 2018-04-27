@@ -5,6 +5,11 @@ from flask_login import UserMixin
 from math import log
 
 
+topics_table = db.Table('topics_table',
+        db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True),
+        db.Column('topic_id', db.Integer, db.ForeignKey('topic.id'), primary_key=True))
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
@@ -37,7 +42,9 @@ class Post(db.Model):
     hotness = db.Column(db.Integer)
 
     age = db.Column(db.Integer)
-#    topics = db.relationship
+    topics = db.relationship('Topic',
+                    secondary=topics_table,
+                    backref="posts")
 
     created_on = db.Column(db.DateTime, default=db.func.now())
 
@@ -93,10 +100,6 @@ class Comment(db.Model):
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(64), index=True, unique=True)
-    posts = db.relationship('Post', backref='topic', lazy='dynamic')
-
-    def __repr__(self):
-        return self.tag_name
 
 @login.user_loader
 def load_user(id):

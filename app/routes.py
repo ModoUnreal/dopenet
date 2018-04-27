@@ -2,7 +2,7 @@ from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
 from app.helpers import redirect_url
-from app.models import User, Post, Comment, find_users_post
+from app.models import User, Post, Comment, Topic,find_users_post
 from app.forms import CommentForm, SubmitForm
 from app import app, db
 
@@ -19,7 +19,7 @@ def index():
 def submit():
     form = SubmitForm()
     if form.validate_on_submit():
-        post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id)
+        post = Post(title=form.title.data, text=form.text.data, user_id=current_user.id, topics=[Topic(tag_name=form.topics.data)])
         post.upvotes = 1
         post.downvotes = 0
         post.importance = 1
