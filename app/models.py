@@ -86,6 +86,7 @@ class Post(db.Model):
         if self.importance == None:
             self.importance = 1
 
+
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))

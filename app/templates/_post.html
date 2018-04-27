@@ -6,6 +6,12 @@
 
             <div class="post-title">
             <td><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a> by {{ post.author.username }}</td>
+
+            {% for topic in post.topics if post.topics %}
+            <td>{{ topic.tag_name }}</td>
+            {% endfor %}
+
+            <td>{{ post.hotness }}</td>
             </div>
 
             <td>Score: {{ post.score }}</td>
