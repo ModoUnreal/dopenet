@@ -1,5 +1,6 @@
 import unittest
-from ..app import create_app
+from app import create_app, db
+from app.models import User
 from config import Config
 
 
@@ -23,4 +24,7 @@ class UserModelCase(unittest.TestCase):
         u = User(username='susan')
         u.set_password('cat')
         self.assertFalse(u.check_password('dog'))
-        self.assertTru(u.check_password('cat'))
+        self.assertTrue(u.check_password('cat'))
+
+if __name__ == '__main__':
+    unittest.main(verbosity=2)
