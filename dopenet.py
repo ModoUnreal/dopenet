@@ -1,6 +1,7 @@
-from app import app, db
+from app import db, app
 from app.models import User, Post, Comment, Topic
 from waitress import serve
+
 
 @app.shell_context_processor
 def make_shell_context():

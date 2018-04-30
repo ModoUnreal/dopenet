@@ -3,11 +3,11 @@ from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
 from ..models import User, Post, Comment, find_users_post
 from .. import db
-from . import api
+from . import bp
 from .forms import LoginForm, RegistrationForm
 
 
-@api.route('/login', methods=['GET', 'POST'])
+@bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
@@ -26,12 +26,12 @@ def login():
         return redirect(next_page)
     return render_template('auth/login.html', title='Login to Dopenet', form=form)
 
-@api.route('/logout')
+@bp.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
-@api.route('/register', methods=['GET', 'POST'])
+@bp.route('/register', methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('index'))
