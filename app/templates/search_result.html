@@ -3,10 +3,14 @@
 
     <h1>Search</h1>
 
-    <h2>Posts that match:</h2><br />
-    <p>{{ post_query }}</p><br />
+    <h2>Posts that match:</h2>
+    {% for post in post_query if post %}
 
-    <h2>Topics that match:</h2><br />
+        <p><a href="{{ url_for('item', post_id=post.id)}}">{{ post.title }}</a> by {{ post.author.username }}</p>
+
+    {% endfor %}
+
+    <h2>Topics that match:</h2>
     <p>{{ topic_query }}</p>
 
 
