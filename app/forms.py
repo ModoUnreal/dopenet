@@ -12,3 +12,7 @@ class SubmitForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment = TextAreaField('Comment', validators=[Length(min=0, max=140)])
     submit = SubmitField('Send')
+
+class SearchForm(FlaskForm):
+    search_str = StringField('Search', validators=[DataRequired()])
+    submit = SubmitField('Search')

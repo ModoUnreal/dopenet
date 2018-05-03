@@ -3,7 +3,7 @@ from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
 from app.helpers import redirect_url
 from app.models import User, Post, Comment, Topic,find_users_post
-from app.forms import CommentForm, SubmitForm
+from app.forms import CommentForm, SubmitForm, SearchForm
 from app import app, db
 
 
@@ -109,6 +109,25 @@ def give_importance(post_id):
 
     return redirect(redirect_url())
 
+@app.route('/search_result/<search_str>', methods=['GET'])
+def search_result(search_str):
+    post_query = Post.query.filter_by(title=search_str).all()
+    topic_query = Topic.query.filter_by(tag_name=search_str).all()
+
+    return render_template('search_result.html', post_query=post_query, topic_query=topic_query)
+
+@app.route('/search', methods=['GET', 'POST'])
+def search():
+    form = SearchForm()
+    if request.method == 'POST' and form.validate_on_submit():
+        search_str = form.search_str.data
+        return redirect(url_for('search_result', search_str=str(search_str)))
+
+    return redirect(url_for('search_result', search_str=form.search_str.data))
+
+    # Finish this method, should link to a search html...
+    # Also make it search for the word, rather than the whole post...
+    # Most of the searching equations and whatnot should be done by the database
 
 @app.route('/faq', methods=['GET'])
 def faq():
