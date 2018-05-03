@@ -8,6 +8,9 @@
 
         <p><a href="{{ url_for('item', post_id=post.id)}}">{{ post.title }}</a> by {{ post.author.username }}</p>
 
+    {% else %}
+        <p>There seems to be no posts here...</p>
+
     {% endfor %}
 
     <h2>Topics that match:</h2>
