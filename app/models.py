@@ -43,9 +43,11 @@ class User(UserMixin, db.Model):
         return self.username  
 
     def set_password(self, password):
+        """Sets the user's password hash, so that it is safer."""
         self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
+        """Checks if the password hash is equal to the plain text password."""
         return check_password_hash(self.password_hash, password)
 
 
@@ -91,6 +93,7 @@ class Post(db.Model):
 
     Relationships
     --------------
+    Posts-Comments = One to Many
     Posts-Topics = Many to Many
     """
     id = db.Column(db.Integer, primary_key=True)
@@ -153,6 +156,27 @@ class Post(db.Model):
 
 
 class Comment(db.Model):
+    """Model for the comments table
+    
+    Represents the comments made in a specific post.
+    
+    Parameters
+    ----------
+    id : int
+        Unique id used to find specific comments.
+    user_id : int
+        Unique id of the user that originally made the post.
+    username : str
+        The name of the user that made the comment
+    text : str
+        The comment itself, so the text in the comment.
+    timestamp : int
+        The time at which the comment was made.
+
+    Relationships
+    ------------
+    Posts-Comments = One to Many
+        """
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
@@ -164,15 +188,34 @@ class Comment(db.Model):
         return '<Comment {}>'.format(self.text)
 
 class Topic(db.Model):
+    """Model for the topic table
+    
+    Represents the topics on the website
+    A post can have many topics, and a topic can have many posts.
+    Therefore posts can be organised by the specific topics that it has.
+    
+    Parameters
+    ----------
+    id : int
+        Unique id which is different for all topics
+    tag_name : str
+        String for the name of the topic.
+
+    Relationships:
+    --------------
+    Posts-Topics = Many to Many
+    """
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(64), index=True, unique=True)
     # There should be a post_id, to reference all posts with this tag...
 
 @login.user_loader
 def load_user(id):
+    """Gets a user from it's id, definitely deprecated once I get to it."""
     return User.query.get(int(id))
 
 def find_users_post(user):
+    """Fetches the user of a post, will be deprecated some day..."""
     posts = Post.query.all()
     user_posts = []
     for post in posts:

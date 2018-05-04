@@ -9,6 +9,9 @@ from .forms import LoginForm, RegistrationForm
 
 @bp.route('/login', methods=['GET', 'POST'])
 def login():
+    """View function to login. Uses the login form.
+       If the @login_required decorator is used on a view function
+       then the user will be redirected to this function."""
     if current_user.is_authenticated:
         return redirect(url_for('index'))
     form = LoginForm()
@@ -28,11 +31,13 @@ def login():
 
 @bp.route('/logout')
 def logout():
+    """View function to log out a user."""
     logout_user()
     return redirect(url_for('index'))
 
 @bp.route('/register', methods=['GET', 'POST'])
 def register():
+    """View function to register a new user, using the register form."""
     if current_user.is_authenticated:
         return redirect(url_for('index'))
 
@@ -46,5 +51,3 @@ def register():
         flash('Congrats!!! You are now registered to Dopenet!')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Register', form=form)
-
-
