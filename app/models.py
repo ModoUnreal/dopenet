@@ -11,6 +11,28 @@ topics_table = db.Table('topics_table',
 
 
 class User(UserMixin, db.Model):
+    """Model for the user table.
+    
+    Represents a user on the website.
+    
+    Parameters
+    ----------
+    id : int
+        Unique id which is different for all users.
+    username : str
+        String for username which the user can pick and also change.
+    email : str
+        String that holds the user's email, for notifications.
+    password_hash : str
+        Contains the hashed password, for security purposes.
+    posts : method
+        Contains an sql query for all of the user's posts.
+    
+    Relationships
+    -------------
+    User-Post = One to many relationship
+    User-Topic = Currently doesn't exist."""
+    
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
     email = db.Column(db.String(120), index=True, unique=True)
@@ -28,6 +50,49 @@ class User(UserMixin, db.Model):
 
 
 class Post(db.Model):
+    """Model for the posts table.
+       
+    Represents the posts made by a user on the website.
+    
+    Parameters
+    ----------
+    id : int
+        Unique number that is different for all posts.
+        
+    text : str
+        The main part of the post, so the text.
+    timestamp: int
+        The time at which the post was made.
+    user_id : int
+        The unique id of the user that originally made the post.
+    title : str
+        The title of the post.
+    comments : method
+        Sql query for all of the comments made in the post.
+
+    score : int
+        Upvotes - Downvotes of a post.
+    upvotes : int
+        The number of times a user has voted the post up.
+    downvotes : int
+        The number of times a user has voted the post down.
+    importance : int
+        The number of times a user has given a post importance.
+    hotness : int
+        Number which posts will be sorted by.
+
+    age : int
+        How old a post is, compared to the epoch time.
+    topics : method
+        Sql query which returns a list of all the topics a post has.
+
+    created_on : int
+       Same deal as the timestamp...
+
+    Relationships
+    --------------
+    Posts-Topics = Many to Many
+    """
     id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime, index=True, default=datetime.datetime.utcnow)
@@ -101,6 +166,7 @@ class Comment(db.Model):
 class Topic(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(64), index=True, unique=True)
+    # There should be a post_id, to reference all posts with this tag...
 
 @login.user_loader
 def load_user(id):

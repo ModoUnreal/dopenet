@@ -12,6 +12,7 @@ login.login_view = 'auth.login'
 
 
 def create_app(debug=False):
+    """Initialises the application"""
     app = Flask(__name__)
     app.config.from_object(Config)
 
