@@ -5,7 +5,7 @@
         <tr valign="top">
 
             <div class="post-title">
-            <td><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a> by {{ post.author.username }}</td>
+                <td><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a> by <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a></td>
 
             {% for topic in post.topics if post.topics %}
             <td>{{ topic.tag_name }}</td>
