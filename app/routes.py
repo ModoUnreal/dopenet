@@ -1,7 +1,7 @@
 from flask import render_template, flash, redirect, url_for, request
 from flask_login import logout_user, current_user, login_user, login_required
 from werkzeug.urls import url_parse
-from app.helpers import redirect_url
+from app.helpers import redirect_url, get_posts_from_topic
 from app.models import User, Post, Comment, Topic,find_users_post
 from app.forms import CommentForm, SubmitForm, SearchForm
 from app import app, db
@@ -149,9 +149,17 @@ def search_result(search_str):
     """Makes a post_query and a topic_query which contains any posts with
        similar names."""
     post_query = Post.query.filter_by(title=search_str).all()
-    topic_query = Topic.query.filter_by(tag_name=search_str).all()
+    topic_query = Topic.query.filter_by(tag_name=search_str).first()
 
-    return render_template('search_result.html', post_query=post_query, topic_query=topic_query)
+    post_with_topic = get_posts_from_topic(topic_query)
+
+    return render_template('search_result.html', post_query=post_query, posts=post_with_topic)
+
+@app.route('/search_topic/<topic_query>', methods=['GET'])
+def search_topic(topic_query):
+    """Shows a list of posts under the specific tag being queried."""
+    topic = Topic.query.filter_by(id=topic_query).first()
+    return render_template('topic.html', topic=topic)
 
 @app.route('/faq', methods=['GET'])
 def faq():

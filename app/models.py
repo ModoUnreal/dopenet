@@ -207,7 +207,7 @@ class Topic(db.Model):
     """
     id = db.Column(db.Integer, primary_key=True)
     tag_name = db.Column(db.String(64), index=True, unique=True)
-    # There should be a post_id, to reference all posts with this tag...
+
 
 @login.user_loader
 def load_user(id):

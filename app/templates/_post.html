@@ -7,8 +7,9 @@
             <div class="post-title">
                 <td><a href="{{ url_for('item', post_id=post.id) }}">{{ post.title }}</a> by <a href="{{ url_for('user', username=post.author.username) }}">{{ post.author.username }}</a></td>
 
+            <br>
             {% for topic in post.topics if post.topics %}
-            <td>{{ topic.tag_name }}</td>
+            <td><a href="{{ url_for('search_topic', topic_query=topic.id) }}">{{ topic.tag_name }}</a></td>
             {% endfor %}
 
             <td>{{ post.hotness }}</td>

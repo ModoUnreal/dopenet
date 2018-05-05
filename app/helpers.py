@@ -15,3 +15,8 @@ def redirect_url():
     return request.args.get('next') or \
             request.referrer or \
             url_for('index')
+
+def get_posts_from_topic(topic):
+    """Gets all posts from a topic name"""
+    posts = topic.posts
+    return posts
