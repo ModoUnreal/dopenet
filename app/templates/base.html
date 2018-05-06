@@ -1,15 +1,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    {% if title %}
-    <title>{{ title }} - Dopenet: The ideal website for the future!</title>
-    {% else %}
-    <title>Welcome to Dopenet!!!</title>
-    {% endif %}
+    <title>Fair news, chosen by you</title>
 ;   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='base.css') }}">
 </head>
 <body>
-    <div>
+
+    <div class="menubar">
+
         <a href="{{ url_for('index') }}">Main</a>
 
         {% if current_user.is_anonymous %}
@@ -41,6 +39,8 @@
     {% endwith %}
     {% block content %}{% endblock %}
 
+    <br>
+    <hr>
     <div class=footer>
         <a href="{{ url_for('faq') }}">FAQ</a>
         <a href="{{ url_for('contact') }}">Contact</a>

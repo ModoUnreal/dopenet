@@ -20,3 +20,11 @@ def get_posts_from_topic(topic):
     """Gets all posts from a topic name"""
     posts = topic.posts
     return posts
+
+def check_if_voted(post, user):
+    """Checks whether a user has voted or not."""
+    for voter in post.voters:
+        if voter.id == user.id:
+            return True
+        elif voter.id != user.id:
+            return False

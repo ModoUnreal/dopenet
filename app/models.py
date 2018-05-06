@@ -9,6 +9,10 @@ topics_table = db.Table('topics_table',
         db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True),
         db.Column('topic_id', db.Integer, db.ForeignKey('topic.id'), primary_key=True))
 
+voters_table = db.Table('voters_table',
+        db.Column('voter_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+        db.Column('post_id', db.Integer, db.ForeignKey('post.id'), primary_key=True))
+
 
 class User(UserMixin, db.Model):
     """Model for the user table.
@@ -38,6 +42,11 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+
+    voted_on = db.relationship('Post',
+                    secondary=voters_table,
+                    backref="voters")
+
 
     def __repr__(self):
         return self.username  
@@ -113,6 +122,7 @@ class Post(db.Model):
     topics = db.relationship('Topic',
                     secondary=topics_table,
                     backref="posts")
+
 
     created_on = db.Column(db.DateTime, default=db.func.now())
 
