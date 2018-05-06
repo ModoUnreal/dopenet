@@ -31,12 +31,14 @@ class UserTestCase(TestCase):
         self.app_context.pop()
 
     def test_insert_user(self):
+        """Tests whether users can be inserted into the database."""
         self.user = User(username="John", email="example@example.com", id=1)
         self.user.set_password("password")
         db.session.add(self.user)
         db.session.commit()
 
     def test_can_fetch_user(self):
+        """Tests whether users can be fetched from the database."""
         self.user = User(username="John", email="example@example.com", id=1)
         self.user.set_password("password")
         db.session.add(self.user)
@@ -47,11 +49,13 @@ class UserTestCase(TestCase):
         self.query = User.query.filter_by(id=1).first()
 
     def test_password_is_equal(self):
+        """Tests whether check_password() works."""
         self.user = User(username="John", email="example@example.com", id=1)
         self.user.set_password("password")
         self.assertTrue(self.user.check_password('password'))
 
     def test_username(self):
+        """Makes sure the username in the database is the same as inputted."""
         self.user = User(username="John", email="example@example.com", id=1)
         self.assertEqual("John", self.user.username)
 
