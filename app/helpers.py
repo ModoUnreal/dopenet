@@ -18,8 +18,11 @@ def redirect_url():
 
 def get_posts_from_topic(topic):
     """Gets all posts from a topic name"""
-    posts = topic.posts
-    return posts
+    if topic != None:
+        posts = topic.posts
+        return posts
+
+    return []
 
 def check_if_voted(post, user):
     """Checks whether a user has voted or not."""

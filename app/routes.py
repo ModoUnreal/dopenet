@@ -178,5 +178,6 @@ def contact():
 @app.route('/rules', methods=['GET'])
 def rules():
     """Returns the rules html file."""
+    # Should "be substantial" be a rule/motto?
     return render_template('rules.html')
 
