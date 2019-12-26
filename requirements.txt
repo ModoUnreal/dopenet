@@ -45,7 +45,7 @@ six==1.11.0
 SQLAlchemy==1.2.6
 Werkzeug==0.14.1
 WTForms==2.1
-waitress==1.1.0
+waitress==1.4.1
 alembic==0.9.9
 click==6.7
 Flask==0.12.2
@@ -62,7 +62,7 @@ python-dateutil==2.7.2
 python-editor==1.0.3
 six==1.11.0
 SQLAlchemy==1.2.6
-waitress==1.1.0
+waitress==1.4.1
 Werkzeug==0.14.1
 WTForms==2.1
 alembic==0.9.9
@@ -89,6 +89,6 @@ python-editor==1.0.3
 six==1.11.0
 SQLAlchemy==1.2.6
 urllib3==1.22
-waitress==1.1.0
+waitress==1.4.1
 Werkzeug==0.14.1
 WTForms==2.1
